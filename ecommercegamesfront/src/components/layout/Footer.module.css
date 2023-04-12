@@ -1,0 +1,30 @@
+.footer{
+    background-color: #333237;
+    color: white;
+    padding: 3em;
+    text-align: center;
+}
+
+.footer ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.footer ul svg{
+    font-size: 2em;
+    cursor: pointer;
+}
+
+.footer ul li{
+    margin: 0 1em;
+}
+
+.footer ul li a{
+    text-decoration: none;
+    color: white;
+}
+
+.footer ul li a:hover{
+    color: #add4d3;
+}

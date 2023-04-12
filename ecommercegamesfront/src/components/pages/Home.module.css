@@ -1,0 +1,9 @@
+.home_container{
+    padding: 2em;
+}
+
+.btn_container{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2em;
+}

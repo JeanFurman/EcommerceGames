@@ -1,0 +1,24 @@
+.gameCard{
+    padding: 1em;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 24%;
+    margin: 0.5%;
+    background-color: #add4d3;
+}
+
+.gameCard h4{
+    padding: .4em;
+    margin-bottom: 1.3em;
+    font-size: 1.3em;
+}
+
+.gameCard p{
+    color: gray;
+    margin: 1em;
+}
+
+.gameCard span{
+    font-weight: bold;
+    font-size: 1em;
+}
