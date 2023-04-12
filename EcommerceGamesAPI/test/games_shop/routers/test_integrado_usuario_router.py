@@ -56,6 +56,8 @@ def test_deve_listar_os_usuarios(instancia_base, json_de_usuario_para_post):
     usuario2 = usuario
     usuario1['id'] = 1
     usuario2['id'] = 2
+    del usuario1['senha']
+    del usuario2['senha']
     response = client.get('/usuario')
     assert response.status_code == 200
     assert response.json() == [usuario1, usuario2]
@@ -73,6 +75,7 @@ def test_deve_criar_um_usuario(instancia_base, json_de_usuario_para_post):
     usuario = json_de_usuario_para_post
     usuario_copy = usuario.copy()
     usuario_copy['id'] = 1
+    del usuario_copy['senha']
 
     response = client.post('/usuario', json=usuario)
 
@@ -80,21 +83,21 @@ def test_deve_criar_um_usuario(instancia_base, json_de_usuario_para_post):
     assert response.json() == usuario_copy
 
 
-def test_deve_excluir_um_game(instancia_base, json_de_usuario_para_post):
+def test_deve_excluir_um_usuario(instancia_base, json_de_usuario_para_post):
     usuario_response = client.post('/usuario', json=json_de_usuario_para_post)
     response = client.delete(f'/usuario/{usuario_response.json()["id"]}')
 
     assert response.status_code == 204
 
 
-def test_deve_retornar_404_se_excluir_um_game_com_id_inexistente(instancia_base):
+def test_deve_retornar_404_se_excluir_um_usuario_com_id_inexistente(instancia_base):
     response = client.delete('/usuario/12121212121')
 
     assert response.status_code == 404
     assert response.json()['detail'] == 'Usuario is not found'
 
 
-def test_deve_atualizar_um_game(instancia_base, json_de_usuario_para_post):
+def test_deve_atualizar_um_usuario(instancia_base, json_de_usuario_para_post):
     response = client.post('/usuario', json=json_de_usuario_para_post)
     id_usuario = response.json()['id']
     usuario_put = json_de_usuario_para_post
@@ -104,3 +107,55 @@ def test_deve_atualizar_um_game(instancia_base, json_de_usuario_para_post):
     assert response_put.status_code == 200
     assert response.json()['nome'] != response_put.json()['nome']
 
+
+def test_deve_fazer_login(instancia_base, json_de_usuario_para_post):
+    client.post('/usuario', json=json_de_usuario_para_post)
+    response_login = client.post('usuario/token', json={
+        'email': 'teste@gmail.com',
+        'senha': 'abc123'
+    })
+
+    assert response_login.status_code == 200
+    assert response_login.json()['access_token'] != ''
+
+
+def test_deve_dar_excecao_quando_fizer_login_com_senha_ou_email_errados(instancia_base, json_de_usuario_para_post):
+    client.post('/usuario', json=json_de_usuario_para_post)
+    response_login = client.post('usuario/token', json={
+        'email': 'teste@gmail.com',
+        'senha': 'senhaErrada'
+    })
+
+    assert response_login.status_code == 400
+
+    response_login = client.post('usuario/token', json={
+        'email': 'emailErrado@gmail.com',
+        'senha': 'abc123'
+    })
+
+    assert response_login.status_code == 400
+
+
+def test_deve_conseguir_acessar_me(instancia_base, json_de_usuario_para_post):
+    client.post('/usuario', json=json_de_usuario_para_post)
+    response_login = client.post('usuario/token', json={
+        'email': 'teste@gmail.com',
+        'senha': 'abc123'
+    })
+    token = response_login.json()['access_token']
+    response_get = client.get('/usuario/me', headers={
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {token}"
+    })
+
+    assert response_get.status_code == 200
+
+
+def test_nao_deve_conseguir_acessar_me(instancia_base, json_de_usuario_para_post):
+    token = '4b6b3852c691a39b9eba0901c262dcc96194d78e713f490fe0bf964fde98e3f4'
+    response_get = client.get('/usuario/me', headers={
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {token}"
+    })
+
+    assert response_get.status_code == 401
