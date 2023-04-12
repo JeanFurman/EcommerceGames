@@ -15,7 +15,10 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 # noinspection PyUnresolvedReferences
-from games.models.games_model import Game
+from games_shop.models.games_model import Game
+
+# noinspection PyUnresolvedReferences
+from games_shop.models.usuario_model import Usuario
 
 
 from shared.database import Base

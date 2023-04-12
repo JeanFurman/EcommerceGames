@@ -6,10 +6,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
-from games.models.games_model import Game
+from games_shop.models.games_model import Game
 from shared.dependencies import get_db
 
-router = APIRouter(prefix='/games')
+router = APIRouter(prefix='/games_shop')
 
 
 class GamesResponse(BaseModel):
