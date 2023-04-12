@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
+from pytest import fixture
 from main import app
 from shared.database import Base
 from shared.dependencies import get_db
@@ -28,72 +28,47 @@ def override_get_db():
 app.dependency_overrides[get_db] = override_get_db
 
 
-def test_deve_listar_os_games():
+@fixture(scope='function')
+def instancia_base():
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 
-    client.post('/games', json={
-        'nome': 'Teste nome',
-        'descricao': 'Teste descricao',
-        'genero': 'FPS',
-        'desenvolvedor': 'Teste desenvolvedor',
-        'plataforma': 'Teste plataforma',
-        'valor': 10,
-    })
-    client.post('/games', json={
-        'nome': 'Teste nome 2',
-        'descricao': 'Teste descricao 2',
-        'genero': 'FPS',
-        'desenvolvedor': 'Teste desenvolvedor 2',
-        'plataforma': 'Teste plataforma 2',
-        'valor': 10,
-    })
-    response = client.get('/games')
 
-    assert response.status_code == 200
-    assert response.json() == [
-        {
-            'id': 1,
+@fixture(scope='function')
+def json_de_games_para_post():
+    return {
             'nome': 'Teste nome',
             'descricao': 'Teste descricao',
             'genero': 'FPS',
             'desenvolvedor': 'Teste desenvolvedor',
             'plataforma': 'Teste plataforma',
             'valor': 10,
-        },
-        {
-            'id': 2,
-            'nome': 'Teste nome 2',
-            'descricao': 'Teste descricao 2',
-            'genero': 'FPS',
-            'desenvolvedor': 'Teste desenvolvedor 2',
-            'plataforma': 'Teste plataforma 2',
-            'valor': 10,
-        }
-    ]
+            }
 
 
-def test_deve_retornar_lista_vazia():
-    Base.metadata.drop_all(bind=engine)
-    Base.metadata.create_all(bind=engine)
+def test_deve_listar_os_games(instancia_base, json_de_games_para_post):
+
+    client.post('/games', json=json_de_games_para_post)
+    client.post('/games', json=json_de_games_para_post)
+    game1 = json_de_games_para_post
+    game2 = game1.copy()
+    game1['id'] = 1
+    game2['id'] = 2
+    response = client.get('/games')
+    assert response.status_code == 200
+    assert response.json() == [game1, game2]
+
+
+def test_deve_retornar_lista_vazia(instancia_base):
     response = client.get('/games')
 
     assert response.status_code == 200
     assert response.json() == []
 
 
-def test_deve_criar_um_game():
-    Base.metadata.drop_all(bind=engine)
-    Base.metadata.create_all(bind=engine)
+def test_deve_criar_um_game(instancia_base, json_de_games_para_post):
 
-    game ={
-        'nome': 'Teste nome',
-        'descricao': 'Teste descricao',
-        'genero': 'FPS',
-        'desenvolvedor': 'Teste desenvolvedor',
-        'plataforma': 'Teste plataforma',
-        'valor': 10,
-    }
+    game = json_de_games_para_post
     game_copy = game.copy()
     game_copy['id'] = 1
 
@@ -101,4 +76,29 @@ def test_deve_criar_um_game():
 
     assert response.status_code == 201
     assert response.json() == game_copy
+
+
+def test_deve_excluir_um_game(instancia_base, json_de_games_para_post):
+    game_response = client.post('/games', json=json_de_games_para_post)
+    response = client.delete(f'/games/{game_response.json()["id"]}')
+
+    assert response.status_code == 204
+
+
+def test_deve_retornar_404_se_excluir_um_game_com_id_inexistente(instancia_base):
+    response = client.delete('/games/12121212121')
+
+    assert response.status_code == 404
+    assert response.json()['detail'] == 'Game is not found'
+
+
+def test_deve_atualizar_um_game(instancia_base, json_de_games_para_post):
+    response = client.post('/games', json=json_de_games_para_post)
+    id_game = response.json()['id']
+    game_put = json_de_games_para_post
+    game_put['nome'] = 'Teste Atualizado'
+    response_put = client.put(f'/games/{id_game}', json=game_put)
+
+    assert response_put.status_code == 200
+    assert response.json()['nome'] != response_put.json()['nome']
 

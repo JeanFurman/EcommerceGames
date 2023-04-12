@@ -4,8 +4,8 @@ from sqlalchemy import Integer, Column, String, Numeric
 from shared.database import Base
 
 
-class Games(Base):
-    __tablename__ = 'games'
+class Game(Base):
+    __tablename__ = 'game'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome = Column(String(80), nullable=False)

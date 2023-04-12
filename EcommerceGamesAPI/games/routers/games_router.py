@@ -2,11 +2,11 @@ from decimal import Decimal
 from enum import Enum
 from typing import List
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
-from games.models.games_model import Games
+from games.models.games_model import Game
 from shared.dependencies import get_db
 
 router = APIRouter(prefix='/games')
@@ -47,17 +47,50 @@ class GameRequest(BaseModel):
 
 @router.get('', response_model=List[GamesResponse])
 def listar_games(db: Session = Depends(get_db)) -> List[GamesResponse]:
-    return db.query(Games).all()
+    return db.query(Game).all()
 
 
 @router.post('', response_model=GamesResponse, status_code=201)
 def criar_game(game_request: GameRequest, db: Session = Depends(get_db)) -> GamesResponse:
-    game = Games(**game_request.dict())
+    game = Game(**game_request.dict())
     db.add(game)
     db.commit()
     db.refresh(game)
 
     return game
+
+
+@router.delete('/{id_game}', status_code=204)
+def deletar_game(id_game: int, db: Session = Depends(get_db)):
+    game = buscar_game_por_id(id_game, db)
+    db.delete(game)
+    db.commit()
+
+
+@router.put('/{id_game}', response_model=GamesResponse, status_code=200)
+def atualizar_game(id_game: int, game_request: GameRequest,
+                   db: Session = Depends(get_db)) -> GamesResponse:
+    game = buscar_game_por_id(id_game, db)
+    game.nome = game_request.nome
+    game.descricao = game_request.descricao
+    game.genero = game_request.genero
+    game.desenvolvedor = game_request.desenvolvedor
+    game.plataforma = game_request.plataforma
+    game.valor = game_request.valor
+    db.add(game)
+    db.commit()
+    db.refresh(game)
+    return game
+
+
+def buscar_game_por_id(id_game: int, db: Session = Depends(get_db)) -> Game:
+    if id_game is not None:
+        game = db.query(Game).get(id_game)
+        if game is not None:
+            return game
+
+    raise HTTPException(status_code=404, detail='Game is not found')
+
 
 
 
