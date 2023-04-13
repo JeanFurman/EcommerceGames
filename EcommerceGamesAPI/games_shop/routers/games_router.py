@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from games_shop.models.games_model import Game
 from shared.dependencies import get_db
 
-router = APIRouter(prefix='/games_shop')
+router = APIRouter(prefix='/games')
 
 
 class GamesResponse(BaseModel):

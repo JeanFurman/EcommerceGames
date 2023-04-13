@@ -1,0 +1,13 @@
+.btn_form{
+    background-color: #fb8351;
+    color: #FFF;
+    padding: 0.7em 1.2em;
+    transition: .5s;
+    cursor: pointer;
+    border: none;
+    font-size: 15px;
+}
+
+.btn_form:hover{
+    background-color: #f55916;
+}
