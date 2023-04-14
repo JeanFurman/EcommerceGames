@@ -4,6 +4,10 @@
 
 .btn_container{
     display: flex;
-    justify-content: space-between;
     margin-bottom: 2em;
+    padding-right: 6em;
+}
+
+.btn_container h1{
+    margin-left: 11em;
 }

@@ -34,6 +34,15 @@ class GamesGeneroEnum(str, Enum):
     MMORPG = 'MMORPG'
     AVENTURA = 'AVENTURA'
     CORRIDA = 'CORRIDA'
+    RITMO = 'RITMO'
+
+
+class GeneroResponse(BaseModel):
+    nome: str
+    generos: List[GamesGeneroEnum]
+
+    class Config:
+        use_enum_values = True
 
 
 class GameRequest(BaseModel):

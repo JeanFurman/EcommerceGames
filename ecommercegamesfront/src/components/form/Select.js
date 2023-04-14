@@ -5,8 +5,9 @@ export default function Select({text, name, options, handleOnChange, value}){
         <div className={styles.select_form}>
             <label htmlFor={name}>{text}</label>
             <select name={name} id={name} value={value || ''} onChange={handleOnChange}>
-                    {options.map((option) => (
-                        <option value={option.id} key={option.id}>{option.name}</option>
+                    <option>Selecione um gênero</option>
+                    {options.map((option, index) => (
+                        <option value={option} key={index}>{option}</option>
                     ))}
             </select>
         </div>

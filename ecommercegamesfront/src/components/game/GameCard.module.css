@@ -22,3 +22,38 @@
     font-weight: bold;
     font-size: 1em;
 }
+
+.gameCard .card_actions{
+    margin-top: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.gameCard .card_actions button{
+    background-color: #ff6565;
+    color: white;
+}
+
+.gameCard .card_actions a{
+    background-color: #50aaa7;
+    color: white;
+}
+
+.gameCard .card_actions a,
+.gameCard .card_actions button{
+    text-decoration: none;
+    border: none;
+    font-size: .9em;
+    padding: .6em 1em;
+    margin-right: 1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+}
+
+.gameCard .card_actions svg{
+    margin-right: 0.5em;
+}

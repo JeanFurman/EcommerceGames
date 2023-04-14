@@ -15,21 +15,37 @@ export default function Home(){
         .then((resp) => resp.json())
         .then((data) => {
             setGames(data)
+            console.log(localStorage.getItem('token'))
         })
         .catch((err) => console.log(err))
     }, [])
 
+    function removeGame(id){
+        fetch(`http://localhost:8001/games/${id}`,{
+            method: 'DELETE',
+        })
+        .then((resp) => {
+            resp.json()
+            setGames(games.filter((game) => game.id !== id))})
+        .catch((err) => console.log(err))
+    }
+
+
     return (
         <div className={styles.home_container}>
             <div className={styles.btn_container}>
-                <h1>Games Shop</h1>
                 <BtnLink to='/criargame' text='Criar Game'/>
+                <h1>Games Shop</h1>
             </div>
             <Container customClass='start'>
-                {games.length > 0 && 
+                {games.length > 0 ? 
                     games.map((game) => (
-                        <GameCard id={game.id} name={game.nome} genero={game.genero} plataforma={game.plataforma} valor={game.valor} key={game.id}/>
-                    ))}
+                        <GameCard id={game.id} name={game.nome} genero={game.genero} 
+                        plataforma={game.plataforma} valor={game.valor} key={game.id} 
+                        handleRemove={removeGame} editGame={game}/>
+                        )):
+                <p>Não há jogos cadastrados</p>
+                }   
             </Container>
         </div>
     )

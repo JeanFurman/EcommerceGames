@@ -1,14 +1,16 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import GameForm from '../game/GameForm'
 import styles from './CriarGame.module.css'
 
-export default function CriarGame(){
+export default function Game(){
 
     const navigate = useNavigate()
+    const { id } = useParams()
+    const game = JSON.parse(localStorage.getItem('game'))
 
-    function criarGame(game){
-        fetch('http://localhost:8001/games', {
-            method: 'POST',
+    function updateGame(game){
+        fetch(`http://localhost:8001/games/${id}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -16,6 +18,7 @@ export default function CriarGame(){
         })
         .then((resp) => resp.json())
         .then(() => {
+            localStorage.removeItem('game')
             navigate('/')
         })
         .catch((err) => console.log())
@@ -23,9 +26,8 @@ export default function CriarGame(){
 
     return (
         <div className={styles.form}>
-            <h1>Criar game</h1>
-            <p>Adicione um game ao sistema</p>
-            <GameForm handleSubmit={criarGame} btnText='Criar'/>
+            <h1>Atualizar game</h1>
+            <GameForm handleSubmit={updateGame} btnText='Atualizar' gameData={game}/>
         </div>
     )
 }

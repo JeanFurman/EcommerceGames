@@ -5,9 +5,10 @@ import Footer from "./components/layout/Footer";
 
 import Home from "./components/pages/Home";
 import CriarGame from "./components/pages/CriarGame";
-import Game from "./components/pages/Game";
+import AtualizarGame from "./components/pages/AtualizarGame";
 import Usuario from "./components/pages/Usuario";
 import Login from "./components/pages/Login";
+import AtualizarUsuario from './components/pages/AtualizarUsuario'
 
 
 function App() {
@@ -18,9 +19,10 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home/>}/>
           <Route path="/criargame" element={<CriarGame/>}/>
-          <Route path="/game" element={<Game/>}/>
+          <Route path="/attgame/:id" element={<AtualizarGame/>}/>
           <Route path="/usuario" element={<Usuario/>}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/perfil" element={<AtualizarUsuario/>}/>
         </Routes>
       </Container>
       <Footer/>

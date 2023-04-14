@@ -44,17 +44,24 @@ def buscar_usuario_por_email(email_usuario: str, db: Session = Depends(get_db)) 
     return db.query(Usuario).filter_by(email=email_usuario).first()
 
 
-def verificar_email_do_usuario(email_usuario: str, db: Session = Depends(get_db)) -> str:
+def buscar_e_verificar_email(email_usuario: str, db: Session = Depends(get_db)):
+    email = verificar_email_do_usuario(email_usuario)
+    usuario = buscar_usuario_por_email(email, db)
+    if usuario is None:
+        return email_usuario
+    else:
+        raise HTTPException(status_code=400, detail='Email ja cadastrado!')
+
+
+def verificar_email_do_usuario(email_usuario: str) -> str:
     if email_usuario is not None:
         try:
             validation = validate_email(email_usuario, check_deliverability=True)
-            usuario = buscar_usuario_por_email(validation.email, db)
+            email_usuario = validation.email
+            return email_usuario
         except EmailNotValidError:
             raise HTTPException(status_code=404, detail='Email inválido!')
-        if usuario is None:
-            return email_usuario
-        else:
-            raise HTTPException(status_code=400, detail='Email ja cadastrado!')
+
 
     raise HTTPException(status_code=404, detail='O campo Email é obrigatório!')
 

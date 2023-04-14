@@ -44,23 +44,24 @@ def json_de_usuario_para_post():
             }
 
 
-def test_deve_listar_os_usuarios(instancia_base, json_de_usuario_para_post):
+def test_deve_listar_o_usuario_por_token(instancia_base, json_de_usuario_para_post):
     client.post('/usuario', json=json_de_usuario_para_post)
+    response_login = client.post('usuario/token', json={
+        'email': 'teste@gmail.com',
+        'senha': 'abc123'
+    })
     usuario = {
+                'id': 1,
                 'nome': 'Teste nome',
-                'email': 'teste2@gmail.com',
-                'senha': 'abc123',
-            }
-    client.post('/usuario', json=usuario)
-    usuario1 = json_de_usuario_para_post
-    usuario2 = usuario
-    usuario1['id'] = 1
-    usuario2['id'] = 2
-    del usuario1['senha']
-    del usuario2['senha']
-    response = client.get('/usuario')
-    assert response.status_code == 200
-    assert response.json() == [usuario1, usuario2]
+                'email': 'teste@gmail.com',
+                }
+    usuario_get = client.get('/usuario', headers={
+        'Authorization': f'Bearer {response_login.json()["access_token"]}'
+    })
+
+    assert usuario_get.json() == usuario
+
+
 
 
 def test_deve_retornar_lista_vazia(instancia_base):
@@ -98,7 +99,7 @@ def test_deve_retornar_404_se_excluir_um_usuario_com_id_inexistente(instancia_ba
 
 
 def test_deve_atualizar_um_usuario(instancia_base, json_de_usuario_para_post):
-    response = client.post('/usuario', json=json_de_usuario_para_post)
+    response = client.put('/usuario', json=json_de_usuario_para_post)
     id_usuario = response.json()['id']
     usuario_put = json_de_usuario_para_post
     usuario_put['nome'] = 'Teste Atualizado'
@@ -149,6 +150,7 @@ def test_deve_conseguir_acessar_me(instancia_base, json_de_usuario_para_post):
     })
 
     assert response_get.status_code == 200
+    assert response_get.json()['nome'] == 'Teste'
 
 
 def test_nao_deve_conseguir_acessar_me(instancia_base, json_de_usuario_para_post):

@@ -1,0 +1,25 @@
+.form{
+    width: 700px;
+    margin: 0 auto;
+    padding: 3em;
+}
+
+.form h1{
+    margin-bottom: 0.5em;
+}
+
+.form p{
+    color: #6f6f6f;
+}
+
+.form div{
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.form div a{
+    margin-top: 0.8em;
+    color: #333237;
+}
+

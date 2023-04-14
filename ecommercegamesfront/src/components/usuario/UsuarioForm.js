@@ -2,21 +2,30 @@ import styles from './UsuarioForm.module.css'
 import Input from '../form/Input'
 import Select from '../form/Select'
 import BtnSubmit from '../form/BtnSubmit'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-export default function UsuarioForm({ handleSubmit, btnText, usuarioData }){
+export default function UsuarioForm({ handleSubmit, btnText , usr}){
 
     // const privilegios = ['ADMIN', 'USER']
-    const [usuario, setUsuario] = useState(usuarioData || {})
+    const [usuario, setUsuario] = useState({})
 
     const submit = (e) => {
         e.preventDefault()
         handleSubmit(usuario)
     }
 
+    console.log(usr.nome, '-', localStorage.getItem('usuarioAtt'))
+    console.log('form')
+
     const handleChange = (e) => {
         setUsuario({...usuario, [e.target.name]: e.target.value})
     }
+
+    useEffect(() => {
+        if (usr != null) {
+            setUsuario(usr)
+        }
+    }, [usr])
 
     return(
         <form onSubmit={submit} className={styles.form}>
