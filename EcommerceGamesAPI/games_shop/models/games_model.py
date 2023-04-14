@@ -10,6 +10,7 @@ class Game(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome = Column(String(80), nullable=False)
     descricao = Column(String(255))
+    imagem = Column(String())
     genero = Column(String(50))
     desenvolvedor = Column(String(50))
     plataforma = Column(String(50))

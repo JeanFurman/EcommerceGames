@@ -26,6 +26,11 @@ export default function GameForm({ handleSubmit, btnText, gameData }){
         setGame({...game, [e.target.name]: parseFloat(e.target.value)})
     }
 
+    const handleImagem = (e) => {
+        setGame({...game, [e.target.name]: e.target.files[0]})
+    }
+
+
     return(
         <form onSubmit={submit} className={styles.form}>
             <Input type='text' text='Nome' name='nome' placeholder='Digite o nome' handleOnChange={handleChange} value={game.nome ? game.nome : ''}/>
@@ -33,6 +38,7 @@ export default function GameForm({ handleSubmit, btnText, gameData }){
             <Input className={styles.desc} type='text' text='Desenvolvedor' name='desenvolvedor' placeholder='Digite o desenvolvedor' handleOnChange={handleChange} value={game.desenvolvedor ? game.desenvolvedor : ''}/>
             <Input type='text' text='Plataforma' name='plataforma' placeholder='Digite a plataforma' handleOnChange={handleChange} value={game.plataforma ? game.plataforma : ''}/>
             <Input type='number' text='Preço' name='valor' placeholder='Digite o preço' handleOnChange={handleValor} value={game.valor && game.valor}/>
+            <input type='file' name='imagem' onChange={handleImagem}/>
             <Select name='genero' text='Selecione um gênero' options={generos} handleOnChange={handleChange} value={game.genero? game.genero : ''}/>
             <BtnSubmit text={btnText}/>
         </form>

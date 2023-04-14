@@ -62,8 +62,6 @@ def test_deve_listar_o_usuario_por_token(instancia_base, json_de_usuario_para_po
     assert usuario_get.json() == usuario
 
 
-
-
 def test_deve_retornar_lista_vazia(instancia_base):
     response = client.get('/usuario')
 

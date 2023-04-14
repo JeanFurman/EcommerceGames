@@ -1,10 +1,12 @@
+import os
 from decimal import Decimal
 from enum import Enum
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, File, UploadFile, Form
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
+import uuid
 
 from games_shop.models.games_model import Game
 from shared.dependencies import get_db
@@ -19,6 +21,7 @@ class GamesResponse(BaseModel):
     genero: str
     desenvolvedor: str
     plataforma: str
+    imagem: str | None
     valor: Decimal
 
     class Config:
@@ -29,7 +32,7 @@ class GamesGeneroEnum(str, Enum):
     FPS = 'FPS'
     BATTLE_ROYALE = 'BATTLE ROYALE'
     PVP = 'PVP'
-    MOBA ='MOBA'
+    MOBA = 'MOBA'
     RPG = 'RPG'
     MMORPG = 'MMORPG'
     AVENTURA = 'AVENTURA'
@@ -60,12 +63,24 @@ def listar_games(db: Session = Depends(get_db)) -> List[GamesResponse]:
 
 
 @router.post('', response_model=GamesResponse, status_code=201)
-def criar_game(game_request: GameRequest, db: Session = Depends(get_db)) -> GamesResponse:
+async def criar_game(nome: str = Form(...), descricao: str = Form(...), genero: str = Form(...),
+                     desenvolvedor: str = Form(...), plataforma: str = Form(...),
+                     valor: Decimal = Form(...), file: UploadFile = File(...),
+                     db: Session = Depends(get_db)) -> GamesResponse:
+    game_request = GameRequest(nome=nome, descricao=descricao,
+                               genero=genero, desenvolvedor=desenvolvedor,
+                               plataforma=plataforma, valor=valor)
     game = Game(**game_request.dict())
+    sufix = os.path.splitext(file.filename)[1]
+    file.filename = f'{uuid.uuid4()}{sufix}'
+    contents = await file.read()
+    diretorio = '/home/jean_/Desktop/Projeto/EcommerceGames/EcommerceGamesAPI/games_shop/images/'
+    with open(f'{diretorio}{file.filename}', 'wb') as f:
+        f.write(contents)
+    game.imagem = file.filename
     db.add(game)
     db.commit()
     db.refresh(game)
-
     return game
 
 
@@ -99,7 +114,3 @@ def buscar_game_por_id(id_game: int, db: Session = Depends(get_db)) -> Game:
             return game
 
     raise HTTPException(status_code=404, detail='Game is not found')
-
-
-
-
