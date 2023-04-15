@@ -6,13 +6,10 @@ export default function CriarGame(){
 
     const navigate = useNavigate()
 
-    function criarGame(game){
+    function criarGame(formData){
         fetch('http://localhost:8001/games', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(game)
+            body: formData
         })
         .then((resp) => resp.json())
         .then(() => {

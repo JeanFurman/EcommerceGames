@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Container from "./Container";
 import controle from '../../img/controle.png'
 import { useState, useLayoutEffect } from 'react';
+import { FaShoppingCart } from 'react-icons/fa'
 
 
 export default function Navbar(){
@@ -62,7 +63,7 @@ export default function Navbar(){
                 </Link>
                 <ul className={styles.ulnavbar}>
                     <li className={styles.linavbar}>
-                        <Link to='/carrinho'>Carrinho</Link>
+                        <Link to='/carrinho'>Carrinho <FaShoppingCart/></Link>
                     </li>
                     {localStorage.getItem('token') != null? 
                     <li><Dropdown/></li>: 

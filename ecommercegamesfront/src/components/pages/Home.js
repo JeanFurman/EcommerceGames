@@ -15,7 +15,6 @@ export default function Home(){
         .then((resp) => resp.json())
         .then((data) => {
             setGames(data)
-            console.log(localStorage.getItem('token'))
         })
         .catch((err) => console.log(err))
     }, [])
@@ -42,7 +41,7 @@ export default function Home(){
                     games.map((game) => (
                         <GameCard id={game.id} name={game.nome} genero={game.genero} 
                         plataforma={game.plataforma} valor={game.valor} key={game.id} 
-                        handleRemove={removeGame} editGame={game}/>
+                        handleRemove={removeGame} imagem={game.imagem} editGame={game}/>
                         )):
                 <p>Não há jogos cadastrados</p>
                 }   

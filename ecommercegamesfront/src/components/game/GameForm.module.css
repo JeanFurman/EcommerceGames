@@ -3,6 +3,25 @@
     margin: 2em 0;
 }
 
-.form .desc{
-    padding-bottom: 10em;
+.form div{
+    display: flex;
+}
+
+.form span{
+    margin-top: 15px;
+    color: #7b7b7b;
+}
+
+input[type='file']{
+    display: none;
+}
+
+.form .labelFile{
+    padding: 15px 8px;
+    width: 150px;
+    background-color: #fb8351;
+    color: white;
+    text-align: center;
+    display: block;
+    cursor: pointer;
 }

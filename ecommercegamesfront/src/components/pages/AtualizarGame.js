@@ -8,13 +8,10 @@ export default function Game(){
     const { id } = useParams()
     const game = JSON.parse(localStorage.getItem('game'))
 
-    function updateGame(game){
+    function updateGame(formData){
         fetch(`http://localhost:8001/games/${id}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(game)
+            body: formData
         })
         .then((resp) => resp.json())
         .then(() => {

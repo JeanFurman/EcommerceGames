@@ -1,0 +1,23 @@
+.text_area{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.text_area label{
+    margin-bottom: .6em;
+    font-weight: bold;
+}
+
+.text_area textarea{
+    padding: .7em;
+    font-size: 14px;
+    border-radius: 0;
+    border: none;
+    margin-bottom: 1em;
+    resize: none;
+}
+
+.text_area textarea::placeholder{
+    color: #7b7b7b;
+}

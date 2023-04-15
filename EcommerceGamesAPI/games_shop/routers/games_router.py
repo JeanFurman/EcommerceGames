@@ -4,6 +4,7 @@ from enum import Enum
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, File, UploadFile, Form
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 import uuid
@@ -12,6 +13,7 @@ from games_shop.models.games_model import Game
 from shared.dependencies import get_db
 
 router = APIRouter(prefix='/games')
+diretorio = '/home/jean_/Desktop/Projeto/EcommerceGames/EcommerceGamesAPI/games_shop/images/'
 
 
 class GamesResponse(BaseModel):
@@ -40,14 +42,6 @@ class GamesGeneroEnum(str, Enum):
     RITMO = 'RITMO'
 
 
-class GeneroResponse(BaseModel):
-    nome: str
-    generos: List[GamesGeneroEnum]
-
-    class Config:
-        use_enum_values = True
-
-
 class GameRequest(BaseModel):
     nome: str = Field(min_length=3, max_length=80)
     descricao: str = Field(min_length=3, max_length=255)
@@ -62,6 +56,12 @@ def listar_games(db: Session = Depends(get_db)) -> List[GamesResponse]:
     return db.query(Game).all()
 
 
+@router.get('/imagens/{id_imagem}')
+def listar_imagens(id_imagem: str):
+    path = f'{diretorio}{id_imagem}'
+    return FileResponse(path)
+
+
 @router.post('', response_model=GamesResponse, status_code=201)
 async def criar_game(nome: str = Form(...), descricao: str = Form(...), genero: str = Form(...),
                      desenvolvedor: str = Form(...), plataforma: str = Form(...),
@@ -74,7 +74,6 @@ async def criar_game(nome: str = Form(...), descricao: str = Form(...), genero: 
     sufix = os.path.splitext(file.filename)[1]
     file.filename = f'{uuid.uuid4()}{sufix}'
     contents = await file.read()
-    diretorio = '/home/jean_/Desktop/Projeto/EcommerceGames/EcommerceGamesAPI/games_shop/images/'
     with open(f'{diretorio}{file.filename}', 'wb') as f:
         f.write(contents)
     game.imagem = file.filename
@@ -87,20 +86,38 @@ async def criar_game(nome: str = Form(...), descricao: str = Form(...), genero: 
 @router.delete('/{id_game}', status_code=204)
 def deletar_game(id_game: int, db: Session = Depends(get_db)):
     game = buscar_game_por_id(id_game, db)
+    path = os.path.join(diretorio, game.imagem)
+    os.remove(path)
     db.delete(game)
     db.commit()
 
 
 @router.put('/{id_game}', response_model=GamesResponse, status_code=200)
-def atualizar_game(id_game: int, game_request: GameRequest,
-                   db: Session = Depends(get_db)) -> GamesResponse:
+async def atualizar_game(id_game: int, nome: str = Form(...), descricao: str = Form(...), genero: str = Form(...),
+                         desenvolvedor: str = Form(...), plataforma: str = Form(...),
+                         valor: Decimal = Form(...), file: UploadFile = File(...),
+                         db: Session = Depends(get_db)) -> GamesResponse:
+    game_request = GameRequest(nome=nome, descricao=descricao,
+                               genero=genero, desenvolvedor=desenvolvedor,
+                               plataforma=plataforma, valor=valor)
+    game_att = Game(**game_request.dict())
     game = buscar_game_por_id(id_game, db)
-    game.nome = game_request.nome
-    game.descricao = game_request.descricao
-    game.genero = game_request.genero
-    game.desenvolvedor = game_request.desenvolvedor
-    game.plataforma = game_request.plataforma
-    game.valor = game_request.valor
+    game.nome = game_att.nome
+    game.descricao = game_att.descricao
+    game.genero = game_att.genero
+    game.desenvolvedor = game_att.desenvolvedor
+    game.plataforma = game_att.plataforma
+    game.valor = game_att.valor
+    imagem = game.imagem
+    sufix = os.path.splitext(file.filename)[1]
+    file.filename = f'{uuid.uuid4()}{sufix}'
+    contents = await file.read()
+    with open(f'{diretorio}{file.filename}', 'wb') as f:
+        f.write(contents)
+    game.imagem = file.filename
+    if imagem is not None:
+        path = os.path.join(diretorio, imagem)
+        os.remove(path)
     db.add(game)
     db.commit()
     db.refresh(game)
@@ -114,3 +131,4 @@ def buscar_game_por_id(id_game: int, db: Session = Depends(get_db)) -> Game:
             return game
 
     raise HTTPException(status_code=404, detail='Game is not found')
+
