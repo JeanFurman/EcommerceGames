@@ -45,7 +45,7 @@ export default function Usuario(){
         <>
         {localStorage.getItem('token') &&
             <div className={styles.form}>
-                <h1>Atualizar userPerfil</h1>
+                <h1>Atualizar Perfil</h1>
                 <UsuarioForm handleSubmit={atualizarUsuario} btnText='Atualizar' usr={usr}/>
             </div>
         }

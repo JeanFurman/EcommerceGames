@@ -1,8 +1,10 @@
 import styles from './GameCard.module.css'
 import { BsPencil, BsFillTrashFill} from 'react-icons/bs'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function GameCard({id, name, genero, plataforma, valor, imagem, handleRemove, editGame}){
+
+    const navigate = useNavigate()
 
     const remove = (e) =>{
         e.preventDefault()
@@ -14,11 +16,15 @@ export default function GameCard({id, name, genero, plataforma, valor, imagem, h
         localStorage.setItem('game', json)
     }
 
+    function details(){
+        navigate(`/details/${id}`)
+    }
+
     return(
         <div className={styles.gameCard}>
             <img src={`http://localhost:8001/games/imagens/${imagem}`} />
             <div>
-                <h4>{name}</h4>
+                <h4 onClick={details}>{name}</h4>
                 <p>
                     Gênero: {genero}
                 </p>

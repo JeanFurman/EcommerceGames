@@ -9,6 +9,7 @@ import AtualizarGame from "./components/pages/AtualizarGame";
 import Usuario from "./components/pages/Usuario";
 import Login from "./components/pages/Login";
 import AtualizarUsuario from './components/pages/AtualizarUsuario'
+import Game from "./components/pages/Game";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/attgame/:id" element={<AtualizarGame/>}/>
           <Route path="/usuario" element={<Usuario/>}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/details/:id" element={<Game/>}/>
           <Route path="/perfil" element={<AtualizarUsuario/>}/>
         </Routes>
       </Container>

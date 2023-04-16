@@ -56,6 +56,11 @@ def listar_games(db: Session = Depends(get_db)) -> List[GamesResponse]:
     return db.query(Game).all()
 
 
+@router.get('/{id_game}', response_model=GamesResponse)
+def listar_game_por_id(id_game: int, db: Session = Depends(get_db)) -> GamesResponse:
+    return buscar_game_por_id(id_game, db)
+
+
 @router.get('/imagens/{id_imagem}')
 def listar_imagens(id_imagem: str):
     path = f'{diretorio}{id_imagem}'

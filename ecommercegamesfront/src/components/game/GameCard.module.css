@@ -16,6 +16,11 @@
     padding: .4em;
     margin-bottom: 1em;
     font-size: 1.3em;
+    cursor: pointer;
+}
+
+.gameCard div h4:hover{
+    color: #ff6565;
 }
 
 .gameCard div p{
