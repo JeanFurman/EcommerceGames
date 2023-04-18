@@ -1,0 +1,52 @@
+.carrinho_div {
+    padding-top: 2em;
+    width: 1200px;
+    display: flex;
+}
+
+.carrinho_div section {
+    flex: 1;
+}
+.carrinho_div aside {
+    min-width: 250px;
+    margin-left: 30px;
+}
+
+.carrinho_div section table {
+    width: 100%;
+    border-collapse: collapse;
+}
+  
+.carrinho_div section table thead .trheader {
+    border-bottom: 3px solid #add4d3;
+    
+}
+
+.carrinho_div section table thead tr th {
+    text-align: left;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    color: #666;
+}
+
+.carrinho_div .semItens{
+    font-size: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+

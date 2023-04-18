@@ -15,3 +15,4 @@ class Game(Base):
     desenvolvedor = Column(String(50))
     plataforma = Column(String(50))
     valor = Column(Numeric)
+    quantidade = Column(Numeric)

@@ -21,6 +21,7 @@ export default function GameForm({ handleSubmit, btnText, gameData }){
         formData.append('desenvolvedor', game.desenvolvedor)
         formData.append('plataforma', game.plataforma)
         formData.append('valor', game.valor)
+        formData.append('quantidade', game.quantidade)
         formData.append('file', imageSelect)
         handleSubmit(formData)
     }
@@ -56,6 +57,7 @@ export default function GameForm({ handleSubmit, btnText, gameData }){
             <Input type='text' text='Desenvolvedor' name='desenvolvedor' placeholder='Digite o desenvolvedor' handleOnChange={handleChange} value={game.desenvolvedor ? game.desenvolvedor : ''}/>
             <Input type='text' text='Plataforma' name='plataforma' placeholder='Digite a plataforma' handleOnChange={handleChange} value={game.plataforma ? game.plataforma : ''}/>
             <Input type='number' text='Preço' name='valor' placeholder='Digite o preço' handleOnChange={handleValor} value={game.valor && game.valor}/>
+            <Input type='number' text='Quantidade' name='quantidade' placeholder='Digite a quantidade' handleOnChange={handleValor} value={game.quantidade && game.quantidade}/>
             <Select name='genero' text='Selecione um gênero' options={generos} handleOnChange={handleChange} value={game.genero? game.genero : ''}/>             
             <BtnSubmit text={btnText}/>
         </form>

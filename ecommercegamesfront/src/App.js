@@ -10,6 +10,7 @@ import Usuario from "./components/pages/Usuario";
 import Login from "./components/pages/Login";
 import AtualizarUsuario from './components/pages/AtualizarUsuario'
 import Game from "./components/pages/Game";
+import Carrinho from "./components/pages/Carrinho";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/details/:id" element={<Game/>}/>
           <Route path="/perfil" element={<AtualizarUsuario/>}/>
+          <Route path="/carrinho" element={<Carrinho/>}/>
         </Routes>
       </Container>
       <Footer/>

@@ -28,6 +28,14 @@
     margin: 1em;
 }
 
+.gameCard div .disponivel{
+    color: #13770a
+}
+
+.indisponivel{
+    color: #ff2d2d
+}
+
 .gameCard div span{
     font-weight: bold;
     font-size: 1em;

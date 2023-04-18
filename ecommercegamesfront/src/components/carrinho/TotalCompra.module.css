@@ -1,0 +1,37 @@
+.box {
+    margin-bottom: 15px;
+    border: 1px solid #333237;
+    background: #cde0e0;
+    color: #222;
+}
+
+.box header {
+    padding: 15px 20px;
+    font-size: 18px;
+    border-bottom: 1px solid #333237;
+}
+    
+.box div {
+    padding: 15px 20px;
+    background: #add4d3;
+    font-size: 18px;
+    display: flex;
+    font-weight: bold;
+    justify-content: space-between;
+}
+
+button {
+    border: 0;
+    padding: 15px 0;
+    color: white;
+    background: #fb8351;
+    display: block;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #f55916;
+}

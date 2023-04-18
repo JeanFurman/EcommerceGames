@@ -24,6 +24,7 @@ class GamesResponse(BaseModel):
     desenvolvedor: str
     plataforma: str
     imagem: str | None
+    quantidade: int
     valor: Decimal
 
     class Config:
@@ -48,7 +49,8 @@ class GameRequest(BaseModel):
     genero: GamesGeneroEnum
     desenvolvedor: str = Field(min_length=3, max_length=50)
     plataforma: str = Field(min_length=1, max_length=50)
-    valor: Decimal = Field(gte=0)
+    valor: Decimal = Field(ge=0)
+    quantidade: int = Field(gt=0)
 
 
 @router.get('', response_model=List[GamesResponse])
@@ -63,18 +65,21 @@ def listar_game_por_id(id_game: int, db: Session = Depends(get_db)) -> GamesResp
 
 @router.get('/imagens/{id_imagem}')
 def listar_imagens(id_imagem: str):
-    path = f'{diretorio}{id_imagem}'
-    return FileResponse(path)
+    try:
+        path = f'{diretorio}{id_imagem}'
+        return FileResponse(path)
+    except:
+        raise HTTPException(status_code=404, detail='Imagem não existe')
 
 
 @router.post('', response_model=GamesResponse, status_code=201)
 async def criar_game(nome: str = Form(...), descricao: str = Form(...), genero: str = Form(...),
                      desenvolvedor: str = Form(...), plataforma: str = Form(...),
-                     valor: Decimal = Form(...), file: UploadFile = File(...),
+                     valor: Decimal = Form(...), quantidade: int = Form(...), file: UploadFile = File(...),
                      db: Session = Depends(get_db)) -> GamesResponse:
     game_request = GameRequest(nome=nome, descricao=descricao,
                                genero=genero, desenvolvedor=desenvolvedor,
-                               plataforma=plataforma, valor=valor)
+                               plataforma=plataforma, valor=valor, quantidade=quantidade)
     game = Game(**game_request.dict())
     sufix = os.path.splitext(file.filename)[1]
     file.filename = f'{uuid.uuid4()}{sufix}'
@@ -100,11 +105,11 @@ def deletar_game(id_game: int, db: Session = Depends(get_db)):
 @router.put('/{id_game}', response_model=GamesResponse, status_code=200)
 async def atualizar_game(id_game: int, nome: str = Form(...), descricao: str = Form(...), genero: str = Form(...),
                          desenvolvedor: str = Form(...), plataforma: str = Form(...),
-                         valor: Decimal = Form(...), file: UploadFile = File(...),
+                         valor: Decimal = Form(...), quantidade: int = Form(...), file: UploadFile = File(...),
                          db: Session = Depends(get_db)) -> GamesResponse:
     game_request = GameRequest(nome=nome, descricao=descricao,
                                genero=genero, desenvolvedor=desenvolvedor,
-                               plataforma=plataforma, valor=valor)
+                               plataforma=plataforma, valor=valor, quantidade=quantidade)
     game_att = Game(**game_request.dict())
     game = buscar_game_por_id(id_game, db)
     game.nome = game_att.nome
@@ -113,6 +118,7 @@ async def atualizar_game(id_game: int, nome: str = Form(...), descricao: str = F
     game.desenvolvedor = game_att.desenvolvedor
     game.plataforma = game_att.plataforma
     game.valor = game_att.valor
+    game.quantidade = game_att.quantidade
     imagem = game.imagem
     sufix = os.path.splitext(file.filename)[1]
     file.filename = f'{uuid.uuid4()}{sufix}'

@@ -1,0 +1,76 @@
+tr {
+    border-bottom: 3px solid #add4d3;
+}
+
+tr td {
+    padding: 30px 0;
+}
+
+tr td .product {
+    display: flex;
+    align-items: center;
+}
+
+tr td .product img {
+    border-radius: 6px;
+    width: 120px;
+    height: 120px;
+}
+
+tr td .product .info {
+    margin-left: 20px;
+}
+
+tr td .product .info .name {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+ 
+ tr td .qtd {
+    background: #eee;
+    display: inline-flex;
+    padding: 0 0;
+    justify-content: space-around;
+    align-items: center;
+    min-width: 60px;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 30px;
+    background-color: #add4d3;
+}
+
+tr td .qtd span {
+    margin: 0 10px;
+}
+
+tr td .qtd button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: 0;
+    background-color: #add4d3;
+    padding: 0 10px;
+    font-size: 20px;
+    height: 100%;
+}
+
+tr td .qtd button:hover {
+    background: #80aaa9;
+}
+
+tr td .remove {
+    background: #ff7a7a;
+    border: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+tr td .remove:hover {
+    background: #ff2c2c;
+}

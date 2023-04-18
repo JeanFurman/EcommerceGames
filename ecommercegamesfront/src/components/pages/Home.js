@@ -40,7 +40,7 @@ export default function Home(){
                 {games.length > 0 ? 
                     games.map((game) => (
                         <GameCard id={game.id} name={game.nome} genero={game.genero} 
-                        plataforma={game.plataforma} valor={game.valor} key={game.id} 
+                        plataforma={game.plataforma} valor={game.valor} quantidade={game.quantidade} key={game.id} 
                         handleRemove={removeGame} imagem={game.imagem} editGame={game}/>
                         )):
                 <p>Não há jogos cadastrados</p>
