@@ -9,16 +9,41 @@ Projeto pessoal feito do zero para portifólio com o tema e-commerce, é possív
   <li>Login do usuário</li>
   <li>CRUD games</li>
   <li>Alterar dados do perfil do usuário</li>
+  <li>Pagina de detalhes dos jogos</li>
+  <li>Carrinho de compras</li>
 </ul>
 
 ### Funções em desenvolvimento
 <ul>
-  <li>Pagina de detalhes dos jogos</li>
-  <li>Carrinho de compras</li>
   <li>Privilégios de acesso</li>
   <li>Estoque de jogos</li>
-  <li>Carteira do usuário</li>
 </ul>
+
+# Layout
+## Página inicial
+<p>
+  <img src='https://github.com/JeanFurman/EcommerceGames/blob/master/assets/tela_principal.png'>
+</p>
+
+## Game details
+<p>
+  <img src='https://github.com/JeanFurman/EcommerceGames/blob/master/assets/tela_details.png'>
+</p>
+
+## Login
+<p>
+  <img src='https://github.com/JeanFurman/EcommerceGames/blob/master/assets/tela_login.png'>
+</p>
+
+## Carrinho
+<p>
+  <img src='https://github.com/JeanFurman/EcommerceGames/blob/master/assets/carrinho.png'>
+</p>
+
+## Atualizar game
+<p>
+  <img src='https://github.com/JeanFurman/EcommerceGames/blob/master/assets/tela_atualizar_game.png'>
+</p>
 
 # Tecnologias utilizadas
 <ul>
