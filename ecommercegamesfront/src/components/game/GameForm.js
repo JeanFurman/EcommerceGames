@@ -53,7 +53,7 @@ export default function GameForm({ handleSubmit, btnText, gameData }){
             </div>            
             <br/> 
             <Input type='text' text='Nome' name='nome' placeholder='Digite o nome' handleOnChange={handleChange} value={game.nome ? game.nome : ''}/>
-            <TextArea rows='4' cols='10'name='descricao' text='Descrição' type='text' placeholder='Digite a descrição' handleOnChange={handleChange} value={game.descricao ? game.descricao : ''}/>
+            <TextArea rows='4' cols='10' name='descricao' text='Descrição' type='text' placeholder='Digite a descrição' handleOnChange={handleChange} value={game.descricao ? game.descricao : ''}/>
             <Input type='text' text='Desenvolvedor' name='desenvolvedor' placeholder='Digite o desenvolvedor' handleOnChange={handleChange} value={game.desenvolvedor ? game.desenvolvedor : ''}/>
             <Input type='text' text='Plataforma' name='plataforma' placeholder='Digite a plataforma' handleOnChange={handleChange} value={game.plataforma ? game.plataforma : ''}/>
             <Input type='number' text='Preço' name='valor' placeholder='Digite o preço' handleOnChange={handleValor} value={game.valor && game.valor}/>

@@ -1,11 +1,12 @@
-
 from sqlalchemy import Integer, Column, String, Numeric
+from sqlalchemy.orm import relationship
 
+from games_shop.models.carrinho_model import Carrinho
 from shared.database import Base
 
 
 class Game(Base):
-    __tablename__ = 'game'
+    __tablename__ = 'games'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome = Column(String(80), nullable=False)
@@ -15,4 +16,4 @@ class Game(Base):
     desenvolvedor = Column(String(50))
     plataforma = Column(String(50))
     valor = Column(Numeric)
-    quantidade = Column(Numeric)
+    quantidade = Column(Integer)

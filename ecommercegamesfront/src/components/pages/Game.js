@@ -43,8 +43,8 @@ export default function Game(){
                 <GameDetails text={'Preço'} value={`R$ ${game.valor}`}/>
                 <GameDetails text={'Quantidade'} value={game.quantidade}/>
                 </div>
+                {game.quantidade > 0 && <button onClick={carrinho}>Comprar</button>}
                 
-                <button onClick={carrinho}>Comprar</button>
             </div>
             <div className={styles.div_image}>
                 <img className={styles.game_image} src={game.imagem &&`http://localhost:8001/games/imagens/${game.imagem}`} />

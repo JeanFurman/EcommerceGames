@@ -14,9 +14,6 @@ export default function UsuarioForm({ handleSubmit, btnText , usr}){
         handleSubmit(usuario)
     }
 
-    console.log(usr.nome, '-', localStorage.getItem('usuarioAtt'))
-    console.log('form')
-
     const handleChange = (e) => {
         setUsuario({...usuario, [e.target.name]: e.target.value})
     }

@@ -20,6 +20,12 @@ from games_shop.models.games_model import Game
 # noinspection PyUnresolvedReferences
 from games_shop.models.usuario_model import Usuario
 
+# noinspection PyUnresolvedReferences
+from games_shop.models.carrinho_model import Carrinho
+
+# noinspection PyUnresolvedReferences
+from games_shop.models.venda_model import Venda
+
 
 from shared.database import Base
 target_metadata = Base.metadata
