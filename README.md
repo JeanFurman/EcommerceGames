@@ -2,7 +2,7 @@
 
 # Sobre o projeto
 
-Projeto pessoal feito do zero para portifólio com o tema e-commerce, é possível cadastrar um usuário (a senha não é armazenada e sim o hash), fazer login via Token JWT seguindo o protocolo OAuth2, alteração de dados do perfil usuário, CRUD de jogos incluindo envio de imagens, página com mais detalhes do jogos e carrinho de compras e estoque de jogos dinâmicos, e também um historico com todas as compras feitas pelo usuário.
+Projeto pessoal feito do zero para portifólio com o tema e-commerce, é possível cadastrar um usuário (a senha não é armazenada e sim o hash), fazer login via Token JWT seguindo o protocolo OAuth2, alteração de dados do perfil usuário, CRUD de jogos incluindo envio de imagens, página com mais detalhes do jogos, carrinho de compras e estoque de jogos dinâmicos, e também um historico com todas as compras feitas pelo usuário.
 
 ### Funções
 <ul>
