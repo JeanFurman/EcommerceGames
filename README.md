@@ -1,9 +1,10 @@
 # EcommerceGames
 
-# Sobre o projeto (ainda em desenvolvimento)
+# Sobre o projeto
 
-Projeto pessoal feito do zero para portifólio com o tema e-commerce, é possível cadastrar um usuário (a senha não é armazenada e sim o hash), fazer login via Token JWT seguindo o protocolo OAuth2, alteração de dados do perfil usuário, CRUD de jogos incluindo envio de imagens, página com mais detalhes do jogos e carrinho de compras e estoque de jogos dinâmicos. Próximas funções descritas abaixo.
-### Funções concluídas
+Projeto pessoal feito do zero para portifólio com o tema e-commerce, é possível cadastrar um usuário (a senha não é armazenada e sim o hash), fazer login via Token JWT seguindo o protocolo OAuth2, alteração de dados do perfil usuário, CRUD de jogos incluindo envio de imagens, página com mais detalhes do jogos e carrinho de compras e estoque de jogos dinâmicos, e também um historico com todas as compras feitas pelo usuário.
+
+### Funções
 <ul>
   <li>Cadastro do usuário</li>
   <li>Login do usuário</li>
@@ -12,11 +13,7 @@ Projeto pessoal feito do zero para portifólio com o tema e-commerce, é possív
   <li>Pagina de detalhes dos jogos</li>
   <li>Carrinho de compras</li>
   <li>Estoque de jogos</li>
-</ul>
-
-### Funções em desenvolvimento
-<ul>
-  <li>Privilégios de acesso</li>
+  <li>Histórico de compras do usuário</li>
 </ul>
 
 # Layout
@@ -43,6 +40,16 @@ Projeto pessoal feito do zero para portifólio com o tema e-commerce, é possív
 ## Atualizar game
 <p>
   <img src='https://github.com/JeanFurman/EcommerceGames/blob/master/assets/tela_atualizar_game.png'>
+</p>
+
+## Histórico
+<p>
+  <img src='https://github.com/JeanFurman/EcommerceGames/blob/master/assets/tela_historico.png'>
+</p>
+
+## Diagrama de classes
+<p>
+  <img src='https://github.com/JeanFurman/EcommerceGames/blob/master/assets/diagrama.png'>
 </p>
 
 # Tecnologias utilizadas
