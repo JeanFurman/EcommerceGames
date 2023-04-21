@@ -13,7 +13,7 @@ from games_shop.models.games_model import Game
 from shared.dependencies import get_db
 
 router = APIRouter(prefix='/games')
-diretorio = '/home/jean_/Desktop/Projeto/EcommerceGames/EcommerceGamesAPI/games_shop/images/'
+diretorio = f'{os.getcwd()}/games_shop/images/'
 
 
 class GamesResponse(BaseModel):

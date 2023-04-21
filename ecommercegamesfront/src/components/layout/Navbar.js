@@ -47,6 +47,7 @@ export default function Navbar(){
                 {open && <div className={styles.dropdown_menu}>
                             <ul>
                                 <li className={styles.dropdown_item}><Link onClick={() => {window.location.href = 'http://localhost:3000/perfil'}}>Perfil</Link></li>
+                                <li className={styles.dropdown_item}><Link onClick={() => {window.location.href = 'http://localhost:3000/historico'}}>Histórico</Link></li>
                                 <li className={styles.dropdown_item}><Link onClick={() => limparToken()}>Logout</Link></li> 
                             </ul>
                         </div>

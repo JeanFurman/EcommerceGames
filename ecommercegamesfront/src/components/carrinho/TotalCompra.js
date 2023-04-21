@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import styles from './TotalCompra.module.css'
 
-export default function TotalCompra({total}){
+export default function TotalCompra({total, finalizarCompra}){
+
+    function submit(){
+        finalizarCompra()
+    }
 
     return (
         <>
@@ -12,7 +16,7 @@ export default function TotalCompra({total}){
                     <span>R$ {parseFloat(total).toFixed(2)}</span>
                 </div>
             </div>
-            <button>Finalizar Compra</button>
+            <button onClick={submit}>Finalizar Compra</button>
         </>
     )
 }

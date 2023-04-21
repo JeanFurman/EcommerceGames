@@ -72,7 +72,7 @@ class VendaResponse(BaseModel):
     usuario_id: int
     carrinhos: List[CarrinhoSchema]
     valor_total: Decimal
-    criado_em: datetime
+    criado_em: str
 
     class Config:
         orm_mode = True
@@ -116,7 +116,8 @@ def listar_venda(usuario: Usuario = Depends(obter_usuario_logado),
         for j in range(0, len(carrinho)):
             game = db.query(Game).get(carrinho[j].game_id)
             carrinhos.append(CarrinhoSchema(quantidade=carrinho[j].quantidade, game=game))
+        data: datetime = vendas[i].criado_em
         historico.append(VendaResponse(id=vendas[i].id, usuario_id=usuario.id,
                                        carrinhos=carrinhos, valor_total=vendas[i].valor_total,
-                                       criado_em=vendas[i].criado_em))
+                                       criado_em=data.strftime("%d/%m/%Y")))
     return historico

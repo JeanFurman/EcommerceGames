@@ -1,7 +1,4 @@
 from sqlalchemy import Integer, Column, String
-from sqlalchemy.orm import relationship
-
-from games_shop.models.venda_model import Venda
 from shared.database import Base
 
 

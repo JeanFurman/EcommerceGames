@@ -1,7 +1,4 @@
 from sqlalchemy import Integer, Column, String, Numeric
-from sqlalchemy.orm import relationship
-
-from games_shop.models.carrinho_model import Carrinho
 from shared.database import Base
 
 

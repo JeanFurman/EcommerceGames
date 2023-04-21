@@ -1,0 +1,57 @@
+.historico_div {
+    padding-top: 2em;
+    width: 1200px;
+    display: flex;
+}
+
+.historico_div section {
+    flex: 1;
+}
+.historico_div aside {
+    min-width: 250px;
+    margin-left: 30px;
+}
+
+.historico_div section table {
+    width: 100%;
+    border-collapse: collapse;
+}
+  
+.historico_div section table thead .trheader {
+    border-bottom: 3px solid #add4d3;
+    
+}
+
+.historico_div section table thead tr th {
+    text-align: center;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    color: #666;
+}
+
+.historico_div section table tbody .linhaTr{
+    border-bottom: 3px solid #add4d3;
+    
+}
+
+.historico_div .semItens{
+    font-size: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+

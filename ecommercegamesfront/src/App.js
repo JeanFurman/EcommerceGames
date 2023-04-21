@@ -11,6 +11,7 @@ import Login from "./components/pages/Login";
 import AtualizarUsuario from './components/pages/AtualizarUsuario'
 import Game from "./components/pages/Game";
 import Carrinho from "./components/pages/Carrinho";
+import Historico from "./components/pages/Historico";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/details/:id" element={<Game/>}/>
           <Route path="/perfil" element={<AtualizarUsuario/>}/>
           <Route path="/carrinho" element={<Carrinho/>}/>
+          <Route path="/historico" element={<Historico/>}/>
         </Routes>
       </Container>
       <Footer/>

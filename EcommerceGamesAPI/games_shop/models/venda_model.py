@@ -2,7 +2,6 @@ from sqlalchemy import Integer, Column, Numeric, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
-from games_shop.models.carrinho_model import Carrinho
 from shared.database import Base
 
 

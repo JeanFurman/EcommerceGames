@@ -2,7 +2,7 @@ import { useState } from "react"
 import styles from './ControleQuantidade.module.css'
 import { AiFillPlusCircle, AiFillMinusCircle, AiFillCloseCircle } from 'react-icons/ai'
 
-export default function ControleQuantidade({nome, soma, quantidade, valor, imagem, id, removeItem}){
+export default function ControleQuantidade({nome, soma, quantidade, index, valor, imagem, id, removeItem, compra, setCompra}){
 
     const [qnt, setQnt] = useState(1)
 
@@ -11,12 +11,18 @@ export default function ControleQuantidade({nome, soma, quantidade, valor, image
             if(qnt < quantidade){
                 setQnt(qnt + 1)
                 soma(valor, validator)
+                let c = compra
+                c[index].quantidade = qnt + 1
+                setCompra(c)
 
             }
         }else{
             if(qnt > 1){
                 setQnt(qnt - 1)
                 soma(valor, validator)
+                let c = compra
+                c[index].quantidade = qnt - 1
+                setCompra(c)
             }   
         }
     }
@@ -24,7 +30,6 @@ export default function ControleQuantidade({nome, soma, quantidade, valor, image
     const remove = () =>{
         removeItem(id, valor)
     }
-
 
     return (
         <tr>
