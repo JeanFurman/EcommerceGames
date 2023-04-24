@@ -16,8 +16,8 @@ Projeto pessoal feito do zero para portifólio com o tema e-commerce, é possív
   <li>Histórico de compras do usuário</li>
 </ul>
 
-Vídeo demonstrativo das funções do E-commerce abaixo <br/>
-<a href='https://www.youtube.com/watch?v=L0NwFVvVzF8' target='_blank'>Clique aqui!</a>
+Vídeo demonstrativo das funções do E-commerce abaixo <br/><br/>
+https://www.youtube.com/watch?v=L0NwFVvVzF8
 
 # Layout
 ## Página inicial
